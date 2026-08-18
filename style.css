@@ -1,0 +1,141 @@
+@charset "UTF-8";
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --space-sm: 4px;
+    --space-md: 8px;
+    --space-lg: 16px;
+    --space-xl: 24px;
+
+    --background: #012329;
+    --surface: #034d5a;
+    --text: #e1f5f8;
+    --text-secondary: #dfe9ebd5;
+    --accent: #058d76;
+    --accent-dark: #058d76bb;
+    --danger: #a71212;
+    --danger-hover: #5a0707;
+    --success: #087e33;
+    --success-hover: #044d1e;
+
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    
+    margin: auto;
+    min-height: 100vh;
+
+    background-color: var(--background);
+    color: var(--text);
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    margin-top: var(--space-md);
+    padding: var(--space-md);
+}
+#toggle-btn{
+    background: none;
+    color: var(--text);
+    border: none;
+    border-radius: var(--space-md);
+
+    padding: var(--space-md);
+}
+#toggle-btn:hover{
+    background: var(--surface);
+    cursor: pointer;
+}
+
+main{
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    width: 90vw;
+    margin-inline: auto;
+}
+.main-header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.title{
+    margin: var(--space-md) 0;
+}
+#search-books{
+    padding: var(--space-sm);
+    text-align: center;
+    border-radius: var(--space-md);
+    border: none;
+    color: var(--accent);
+}
+#add-book-btn{
+    padding: var(--space-sm);
+
+    border: solid 1px var(--text);
+    border-radius: var(--space-md);
+    background: var(--surface);
+    color: var(--text);
+
+    box-shadow: 2px 1px 5px rgba(255, 255, 255, 0.4);
+}
+#add-book-btn:hover{
+    cursor: pointer;
+    background: var(--accent-dark);
+}
+.nav-filter{
+    display: flex;
+    
+    width: 80%;
+    margin: var(--space-md) 0;
+}
+.nav-filter button{
+    flex: 1;
+    padding: var(--space-sm);
+    border: none;
+    border-radius: var(--space-md);
+
+    background: none;
+    color: var(--text);
+}
+.nav-filter button:hover{
+    background-color: var(--accent-dark);
+}
+
+
+
+footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+    
+    margin-top: var(--space-sm);
+
+    background: var(--surface);
+}
+.footer-text{
+    color: var(--text);
+    padding: var(--space-md);
+    opacity: .75;
+}
+.footer-text a{
+    color: var(--text);
+    text-decoration: none;
+}
+.footer-text a:hover{
+    color: var(--text-secondary);
+    text-decoration: underline;
+    cursor: pointer;
+}

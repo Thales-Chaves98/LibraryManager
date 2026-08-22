@@ -66,24 +66,36 @@
      <footer>
         <p class="footer-text">Library Manager made by <a href="https://github.com/Thales-Chaves98">Thales Chaves</a></p>
     </footer>
-
-
+    
     <section id="add-book-modal" class="modal">
         <div class="modal-content">
-            <div class="form-group">
-                <form class="book-form">
+            <form class="book-form">
                     <label for="book-title">Título:</label>
                     <input type="text" id="book-title" class="form-input" autocomplete="off" placeholder="Digite o título do livro">
                     <label for="book-author">Autor:</label>
                     <input type="text" id="book-author" class="form-input" autocomplete="off" placeholder="Digite o nome do autor">
-                </form>
-            </div>
+            </form>
             <div class="modal-actions">
-                <button id="cancel-note-btn" type="button" class="cancel-btn" >Cancelar</button>
-                <button id="save-note-btn" type="button" class="save-btn" >Salvar</button>
+                <button id="cancel-btn" type="button" class="cancel-btn">Cancelar</button>
+                <button id="save-btn" type="button" class="save-btn">Salvar</button>
             </div>
         </div>
     </section>
+    
+
+    <section id="delete-modal" class="modal" >
+        <div class="modal-content">
+            <h2>EXCLUIR LIVRO ?</h2>
+            <p>Tem certeza que deseja excluir esse livro ?</p>
+            <p>Essa ação não poderá ser desfeita !</p>
+
+            <div class="modal-actions">
+                <button id="cancel-delete-btn" class="cancel-btn">Cancelar</button>
+                <button id="confirm-delete-btn" class="save-btn">Excluir</button>
+            </div>
+        </div>
+    </section>
+
     <script src="script.js"></script>
 </body>
 </html>

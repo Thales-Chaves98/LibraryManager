@@ -84,15 +84,16 @@ main{
 #add-book-btn{
     padding: var(--space-sm);
 
-    border: solid 1px var(--text);
+    border: none;
     border-radius: var(--space-md);
-    background: var(--surface);
-    color: var(--text);
+    background: var(--text-secondary);
+    color: var(--background);
+    font-weight: bolder;
 
 }
 #add-book-btn:hover{
     cursor: pointer;
-    background: var(--accent-dark);
+    background: var(--surface);
 }
 .nav-filter{
     display: flex;
@@ -215,7 +216,7 @@ footer{
     position: fixed;
     inset: 0;
 
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
 
@@ -233,11 +234,74 @@ footer{
 .modal-content{
     padding: var(--space-sm);
 
-    width: 95%;
+    width: 85%;
     background: var(--surface);
 
     border: solid 1px var(--surface-light);
     border-radius: var(--space-lg);
     
     overflow: hidden;
+}
+#delete-modal h2{
+    text-align: center;
+    margin-top: var(--space-md);
+    
+}
+#delete-modal p{
+    margin: var(--space-lg) 0;
+    text-align: center;
+}
+
+.book-form{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+
+    padding: var(--space-md);
+}
+.form-input{
+    background: var(--surface);
+    color: var(--text);
+    
+    border: solid 1px var(--text);
+    border-radius: var(--space-md);
+
+    padding: var(--space-md);
+}
+
+.modal-actions{
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: var(--space-md) ;
+
+    margin-inline: calc(var(--space-sm) * -1);
+    margin-bottom: calc(var(--space-sm) * -1);
+
+    
+}
+.modal-actions button{
+    flex: 1;
+
+    padding:var(--space-lg);
+
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+.cancel-btn{
+    background: var(--danger);
+    color: var(--text);
+    border: solid 1px var(--background);
+}
+.cancel-btn:hover{
+    background: var(--danger-hover);
+}
+.save-btn{
+    background: var(--success);
+    color: var(--text);
+    border: solid 1px var(--background);
+}
+.save-btn:hover{
+    background: var(--success-hover);
 }

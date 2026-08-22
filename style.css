@@ -13,11 +13,11 @@
     --space-xl: 24px;
 
     --background: #012329;
-    --surface: #034d5a;
+    --surface: #034d5acc;
     --text: #e1f5f8;
     --text-secondary: #dfe9ebd5;
     --accent: #058d76;
-    --accent-dark: #058d76bb;
+    --accent-dark: #035c4de3;
     --danger: #a71212;
     --danger-hover: #5a0707;
     --success: #087e33;
@@ -89,7 +89,6 @@ main{
     background: var(--surface);
     color: var(--text);
 
-    box-shadow: 2px 1px 5px rgba(255, 255, 255, 0.4);
 }
 #add-book-btn:hover{
     cursor: pointer;
@@ -114,6 +113,78 @@ main{
     background-color: var(--accent-dark);
 }
 
+#books-container{
+    flex: 1;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+
+    width: 90%;
+    margin: var(--space-sm) auto;
+}
+.empty-state{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: -150px;
+    opacity: .5;
+}
+.empty-state p, .empty-state span{
+    text-align: center;
+    font-size: 5rem;
+}
+
+.book-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+
+    background: var(--surface);
+    border-radius: var(--space-lg);
+    border: 1px solid var(--text-secondary);
+    overflow: hidden;
+}
+.book-description{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: var(--space-sm);
+    gap: var(--space-md);
+}
+.book-name{
+    font-size: 1.2rem;
+    font-weight: bolder;
+}
+.book-actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    width: 100%;
+    margin-top: var(--space-md);
+
+}
+.book-actions button{
+    border: none;
+    background: none;
+    width: 100%;
+    
+}
+.book-actions button:hover{
+    background: var(--accent-dark);
+    cursor: pointer;
+}
+.book-actions span{
+    color: var(--text);
+}
 
 
 footer{

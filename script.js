@@ -37,14 +37,17 @@ function createBookObject(){
 
     const title = inputBookTitle.value.trim().toUpperCase(); 
     const author = inputBookAuthor.value.trim().toUpperCase(); 
+    const isRead = false;
+    const isFavorite = false;
 
     const book = {
         id: nextBookId,
         title,
-        author
+        author,
+        isRead,
+        isFavorite
     };
-
-    console.log(book);
+    return book;
 }
 
 function openModal(modal){
@@ -52,4 +55,10 @@ function openModal(modal){
 }
 function closeModal(modal){
     modal.classList.remove("show");
+    clearBookForm();
+}
+
+function clearBookForm(){
+    inputBookTitle.value = "";
+    inputBookAuthor.value = "";
 }

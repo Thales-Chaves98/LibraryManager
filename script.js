@@ -11,7 +11,7 @@ const cancelAddBook = document.getElementById("cancel-btn");
 const saveAddBook = document.getElementById("save-btn");
 
 
-let nextBookId = 0;
+let nextBookId = 1;
 const books = [];
 
 addBookBtn.addEventListener('click', (event) =>{
@@ -47,7 +47,16 @@ function createBookObject(){
         isRead,
         isFavorite
     };
-    return book;
+    
+    books.push(book);
+    nextBookId++;
+    clearBookForm();
+
+    console.log(books);
+}
+
+function renderBooks(){
+
 }
 
 function openModal(modal){

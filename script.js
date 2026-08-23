@@ -18,14 +18,24 @@ const cancelDeleteBtn = document.getElementById("cancel-delete-btn");
 //Book Container
 const bookContainer = document.getElementById("books-container");
 
+//Filter
+const allFilterBtn = document.getElementById("all-btn");
+const readFilterBtn = document.getElementById("read-btn");
+const unreadFilterBtn = document.getElementById("unread-btn");
+const favoriteFilterBtn = document.getElementById("favorite-btn");
+
 let books = [];
 let nextBookId = 1;
 
 let editingBookId = null;
 let deletingBookId = null;
+let currentFilter = "all";
 
 addBookBtn.addEventListener('click', (event) =>{
     event.preventDefault();
+
+    clearBookForm();
+    editingBookId = null;
 
     openModal(addBookModal);
 
@@ -36,7 +46,12 @@ cancelAddBook.addEventListener('click', () =>{
 });
 
 saveAddBook.addEventListener('click', () =>{
-    createBookObject();
+    if(editingBookId === null){
+        createBookObject();
+    } else {
+        updateBook(editingBookId);
+    }
+
     closeModal(addBookModal);
 });
 
@@ -50,7 +65,11 @@ bookContainer.addEventListener('click', (event) =>{
     if(event.target.closest(".delete-btn")){
         confirmDeleteBook(bookId);
     } else if(event.target.closest(".edit-btn")){
-
+        editBook(bookId);
+    } else if(event.target.closest(".favorite-btn")){
+        toggleFavorite(bookId);
+    } else if(event.target.closest(".read-btn")){
+        toggleRead(bookId);
     }
 });
 
@@ -61,6 +80,31 @@ confirmDeleteBtn.addEventListener('click', () =>{
 
     deletingBookId = null;
 });
+
+cancelDeleteBtn.addEventListener('click', () =>{
+    closeModal(deleteBookModal);
+});
+
+allFilterBtn.addEventListener('click', () =>{
+    currentFilter = "all";
+    renderBooks();
+});
+
+readFilterBtn.addEventListener('click', () =>{
+    currentFilter = "read";
+    renderBooks();
+});
+
+unreadFilterBtn.addEventListener('click', () =>{
+    currentFilter = "unread";
+    renderBooks();
+});
+
+favoriteFilterBtn.addEventListener('click', () =>{
+    currentFilter = "favorite";
+    renderBooks();
+});
+
 
 
 function createBookObject(){
@@ -88,11 +132,12 @@ function createBookObject(){
 }
 
 function renderBooks(){
-    
-    if(books.length > 0){
+    const filteredBooks = getFilteredBooks();
+
+    if(filteredBooks.length > 0){
         bookContainer.innerHTML = '';
 
-        books.forEach(book => {
+        filteredBooks.forEach(book => {
 
             const bookCard = document.createElement("div");
             bookCard.classList.add("book-card");
@@ -119,6 +164,7 @@ function renderBooks(){
             const readIcon = document.createElement("span");
             readIcon.classList.add("material-symbols-outlined");
             readIcon.textContent = "bookmark";
+            readIcon.style.fontVariationSettings = `"FILL" ${book.isRead ? 1 : 0}`;
             
             const favoriteBtn = document.createElement("button");
             favoriteBtn.classList.add("favorite-btn");
@@ -126,6 +172,7 @@ function renderBooks(){
             const favoriteIcon = document.createElement("span");
             favoriteIcon.classList.add("material-symbols-outlined");
             favoriteIcon.textContent = "favorite";
+            favoriteIcon.style.fontVariationSettings = `"FILL" ${book.isFavorite ? 1 : 0}`;
 
             const editBtn = document.createElement("button");
             editBtn.classList.add("edit-btn");
@@ -178,7 +225,11 @@ function openModal(modal){
 
 function closeModal(modal){
     modal.classList.remove("show");
-    clearBookForm();
+    
+    if(modal === addBookModal){
+        clearBookForm();
+        editingBookId = null;
+    }
 }
 
 function clearBookForm(){
@@ -227,6 +278,86 @@ function confirmDeleteBook(bookId){
     deletingBookId = bookId;
     openModal(deleteBookModal);
 }
+
+function editBook(bookId){
+    const book = books.find((b) => {
+        return b.id === bookId
+    });
+
+    if(!book) return;
+
+    editingBookId = bookId;
+
+    inputBookTitle.value = book.title;
+    inputBookAuthor.value = book.author;
+
+    openModal(addBookModal);
+}
+
+function updateBook(bookId){
+    const title = inputBookTitle.value.trim().toUpperCase(); 
+    const author = inputBookAuthor.value.trim().toUpperCase(); 
+
+    if(title === "" || author === "") return;
+
+    const book = books.find((b) => {
+        return b.id === bookId;
+    });
+
+    if(!book) return;
+
+    book.title = title;
+    book.author = author;
+
+    editingBookId = null;
+
+    refresh();
+}
+
+function toggleFavorite(bookId){
+    const book = books.find((b) => {
+        return b.id === bookId
+    });
+
+    if(!book) return;
+
+    book.isFavorite = !book.isFavorite;
+
+    refresh();
+}
+
+function toggleRead(bookId){
+    const book = books.find((b) => {
+        return b.id === bookId
+    });
+
+    if(!book) return;
+
+    book.isRead = !book.isRead;
+
+    refresh();
+}
+
+function getFilteredBooks(){
+    
+    if(currentFilter === "all"){
+        return books;
+    }
+
+    if(currentFilter === "read"){
+        return books.filter(book => book.isRead === true);
+    }
+
+    if(currentFilter === "unread"){
+        return books.filter(book => book.isRead === false);
+    }
+
+    if(currentFilter === "favorite"){
+        return books.filter(book => book.isFavorite === true);
+    }
+
+}
+
 
 function refresh(){
     saveBooks();

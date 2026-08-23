@@ -14,14 +14,12 @@ const saveAddBook = document.getElementById("save-btn");
 const bookContainer = document.getElementById("books-container");
 
 let nextBookId = 1;
-const books = [];
+let books = [];
 
 addBookBtn.addEventListener('click', (event) =>{
     event.preventDefault();
 
     openModal(addBookModal);
-
-    saveBooks();
 
 });
 
@@ -30,10 +28,8 @@ cancelAddBook.addEventListener('click', () =>{
 });
 
 saveAddBook.addEventListener('click', () =>{
-    
+        
     createBookObject();
-    
-    
     closeModal(addBookModal);
 });
 
@@ -44,6 +40,8 @@ function createBookObject(){
     const isRead = false;
     const isFavorite = false;
 
+    if(title === "" || author === "") return;
+    
     const book = {
         id: nextBookId,
         title,
@@ -60,75 +58,87 @@ function createBookObject(){
 }
 
 function renderBooks(){
-    bookContainer.innerHTML = '';
+    
+    if(books.length > 0){
+        bookContainer.innerHTML = '';
 
-    books.forEach(book => {
+        books.forEach(book => {
 
-        const bookCard = document.createElement("div");
-        bookCard.classList.add("book-card");
+            const bookCard = document.createElement("div");
+            bookCard.classList.add("book-card");
 
-        const bookDescription = document.createElement("div");
-        bookDescription.classList.add("book-description");
+            const bookDescription = document.createElement("div");
+            bookDescription.classList.add("book-description");
 
-        const bookTitle = document.createElement("p");
-        bookTitle.classList.add("book-title");
-        bookTitle.textContent = book.title;
+            const bookTitle = document.createElement("p");
+            bookTitle.classList.add("book-title");
+            bookTitle.textContent = book.title;
 
-        const bookAuthor = document.createElement("p");
-        bookAuthor.classList.add("book-author");
-        bookAuthor.textContent = book.author;
+            const bookAuthor = document.createElement("p");
+            bookAuthor.classList.add("book-author");
+            bookAuthor.textContent = book.author;
 
 
-        const bookActions = document.createElement("div");
-        bookActions.classList.add("book-actions");
+            const bookActions = document.createElement("div");
+            bookActions.classList.add("book-actions");
 
-        const readBtn = document.createElement("button");
-        readBtn.classList.add("read-btn");
+            const readBtn = document.createElement("button");
+            readBtn.classList.add("read-btn");
 
-        const readIcon = document.createElement("span");
-        readIcon.classList.add("material-symbols-outlined");
-        readIcon.textContent = "bookmark";
-        
-        const favoriteBtn = document.createElement("button");
-        favoriteBtn.classList.add("favorite-btn");
+            const readIcon = document.createElement("span");
+            readIcon.classList.add("material-symbols-outlined");
+            readIcon.textContent = "bookmark";
+            
+            const favoriteBtn = document.createElement("button");
+            favoriteBtn.classList.add("favorite-btn");
 
-        const favoriteIcon = document.createElement("span");
-        favoriteIcon.classList.add("material-symbols-outlined");
-        favoriteIcon.textContent = "favorite";
+            const favoriteIcon = document.createElement("span");
+            favoriteIcon.classList.add("material-symbols-outlined");
+            favoriteIcon.textContent = "favorite";
 
-        const editBtn = document.createElement("button");
-        editBtn.classList.add("edit-btn");
+            const editBtn = document.createElement("button");
+            editBtn.classList.add("edit-btn");
 
-        const editIcon = document.createElement("span");
-        editIcon.classList.add("material-symbols-outlined");
-        editIcon.textContent = "edit";
+            const editIcon = document.createElement("span");
+            editIcon.classList.add("material-symbols-outlined");
+            editIcon.textContent = "edit";
 
-        const deleteBtn = document.createElement("button");
-        deleteBtn.classList.add("delete-btn");
+            const deleteBtn = document.createElement("button");
+            deleteBtn.classList.add("delete-btn");
 
-        const deleteIcon = document.createElement("span");
-        deleteIcon.classList.add("material-symbols-outlined");
-        deleteIcon.textContent = "delete";
+            const deleteIcon = document.createElement("span");
+            deleteIcon.classList.add("material-symbols-outlined");
+            deleteIcon.textContent = "delete";
 
-        readBtn.append(readIcon);
-        favoriteBtn.append(favoriteIcon);
-        editBtn.append(editIcon);
-        deleteBtn.append(deleteIcon);
+            readBtn.append(readIcon);
+            favoriteBtn.append(favoriteIcon);
+            editBtn.append(editIcon);
+            deleteBtn.append(deleteIcon);
 
-        bookActions.append(
-            readBtn, favoriteBtn, editBtn, deleteBtn
-        );
+            bookActions.append(
+                readBtn, favoriteBtn, editBtn, deleteBtn
+            );
 
-        bookDescription.append(
-            bookTitle, bookAuthor
-        );
-        
-        bookCard.append(
-            bookDescription, bookActions
-        );
+            bookDescription.append(
+                bookTitle, bookAuthor
+            );
+            
+            bookCard.append(
+                bookDescription, bookActions
+            );
 
-        bookContainer.append(bookCard);
-    });
+            bookContainer.append(bookCard);
+        });
+    } else {
+        bookContainer.innerHTML = 
+        `
+            <div class="empty-state">
+                <span class="material-symbols-outlined">auto_stories_off</span>
+                <p>Empty Shelves !</p>
+            </div>
+        `
+    }
+    
 }
 
 function openModal(modal){
@@ -153,14 +163,14 @@ function loadBooks(){
     const savedBooks = localStorage.getItem("books");
 
     if(savedBooks){
-        tasks = JSON.parse(savedBooks);
+        books = JSON.parse(savedBooks);
         uptadeNextId();
     }
 }
 
 function uptadeNextId(){
     if(books.length === 0){
-        nextId = 1;
+        nextBookId = 1;
         return;
     }
 
@@ -173,3 +183,4 @@ function uptadeNextId(){
 }
 
 loadBooks();
+renderBooks();

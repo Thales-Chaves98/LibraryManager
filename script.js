@@ -21,19 +21,20 @@ addBookBtn.addEventListener('click', (event) =>{
 
     openModal(addBookModal);
 
+    saveBooks();
 
 });
 
 cancelAddBook.addEventListener('click', () =>{
     closeModal(addBookModal);
 });
+
 saveAddBook.addEventListener('click', () =>{
     
     createBookObject();
     
     
     closeModal(addBookModal);
-    renderBooks();
 });
 
 function createBookObject(){
@@ -53,9 +54,9 @@ function createBookObject(){
     
     books.push(book);
     nextBookId++;
+    saveBooks();
     clearBookForm();
-
-    console.log(books);
+    renderBooks();
 }
 
 function renderBooks(){
@@ -142,3 +143,33 @@ function clearBookForm(){
     inputBookTitle.value = "";
     inputBookAuthor.value = "";
 }
+
+function saveBooks(){
+    localStorage.setItem("books", JSON.stringify(books));
+
+}
+
+function loadBooks(){
+    const savedBooks = localStorage.getItem("books");
+
+    if(savedBooks){
+        tasks = JSON.parse(savedBooks);
+        uptadeNextId();
+    }
+}
+
+function uptadeNextId(){
+    if(books.length === 0){
+        nextId = 1;
+        return;
+    }
+
+    const maxId = Math.max(...books.map((b) => {
+        return b.id;
+    }));
+
+    nextId = maxId + 1;
+
+}
+
+loadBooks();

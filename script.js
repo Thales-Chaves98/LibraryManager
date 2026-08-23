@@ -1,4 +1,5 @@
 const addBookBtn = document.getElementById("add-book-btn");
+const searchBooks = document.getElementById("search-books");
 
 //Form
 let inputBookTitle = document.getElementById("book-title");
@@ -30,6 +31,7 @@ let nextBookId = 1;
 let editingBookId = null;
 let deletingBookId = null;
 let currentFilter = "all";
+let currentSearch = "";
 
 addBookBtn.addEventListener('click', (event) =>{
     event.preventDefault();
@@ -83,6 +85,12 @@ confirmDeleteBtn.addEventListener('click', () =>{
 
 cancelDeleteBtn.addEventListener('click', () =>{
     closeModal(deleteBookModal);
+});
+
+searchBooks.addEventListener('input', () =>{
+    currentSearch = searchBooks.value.trim().toUpperCase();
+
+    renderBooks();
 });
 
 allFilterBtn.addEventListener('click', () =>{
@@ -339,23 +347,24 @@ function toggleRead(bookId){
 }
 
 function getFilteredBooks(){
-    
-    if(currentFilter === "all"){
-        return books;
-    }
+    let filteredBooks = books;
 
     if(currentFilter === "read"){
-        return books.filter(book => book.isRead === true);
+        filteredBooks = filteredBooks.filter(book => book.isRead);
     }
-
     if(currentFilter === "unread"){
-        return books.filter(book => book.isRead === false);
+        filteredBooks = filteredBooks.filter(book => !book.isRead);
     }
-
     if(currentFilter === "favorite"){
-        return books.filter(book => book.isFavorite === true);
+        filteredBooks = filteredBooks.filter(book => book.isFavorite);
     }
 
+    if(currentSearch !==""){
+        filteredBooks = filteredBooks.filter(b => {
+            return b.title.includes(currentSearch) || b.author.includes(currentSearch);
+        });
+    }
+    return filteredBooks;
 }
 
 

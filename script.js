@@ -10,11 +10,19 @@ const addBookModal = document.getElementById("add-book-modal");
 const cancelAddBook = document.getElementById("cancel-btn");
 const saveAddBook = document.getElementById("save-btn");
 
+//Confirm Delete Modal
+const deleteBookModal = document.getElementById("delete-modal");
+const confirmDeleteBtn = document.getElementById("confirm-delete-btn");
+const cancelDeleteBtn = document.getElementById("cancel-delete-btn");
+
 //Book Container
 const bookContainer = document.getElementById("books-container");
 
-let nextBookId = 1;
 let books = [];
+let nextBookId = 1;
+
+let editingBookId = null;
+let deletingBookId = null;
 
 addBookBtn.addEventListener('click', (event) =>{
     event.preventDefault();
@@ -28,10 +36,32 @@ cancelAddBook.addEventListener('click', () =>{
 });
 
 saveAddBook.addEventListener('click', () =>{
-        
     createBookObject();
     closeModal(addBookModal);
 });
+
+bookContainer.addEventListener('click', (event) =>{
+    const bookCard = event.target.closest(".book-card");
+
+    if(!bookCard) return;
+
+    const bookId = Number(bookCard.dataset.id);
+
+    if(event.target.closest(".delete-btn")){
+        confirmDeleteBook(bookId);
+    } else if(event.target.closest(".edit-btn")){
+
+    }
+});
+
+confirmDeleteBtn.addEventListener('click', () =>{
+    if(deletingBookId !== null){
+        deleteBook(deletingBookId);
+    }
+
+    deletingBookId = null;
+});
+
 
 function createBookObject(){
 
@@ -66,6 +96,7 @@ function renderBooks(){
 
             const bookCard = document.createElement("div");
             bookCard.classList.add("book-card");
+            bookCard.dataset.id = book.id;
 
             const bookDescription = document.createElement("div");
             bookDescription.classList.add("book-description");
@@ -144,6 +175,7 @@ function renderBooks(){
 function openModal(modal){
     modal.classList.add("show");
 }
+
 function closeModal(modal){
     modal.classList.remove("show");
     clearBookForm();
@@ -178,8 +210,27 @@ function uptadeNextId(){
         return b.id;
     }));
 
-    nextId = maxId + 1;
+    nextBookId = maxId + 1;
 
+}
+
+function deleteBook(bookId){
+    books = books.filter((b) => {
+        return b.id !== bookId;
+    });
+
+    refresh();
+    closeModal(deleteBookModal);
+}
+
+function confirmDeleteBook(bookId){
+    deletingBookId = bookId;
+    openModal(deleteBookModal);
+}
+
+function refresh(){
+    saveBooks();
+    renderBooks();
 }
 
 loadBooks();

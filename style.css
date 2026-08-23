@@ -118,7 +118,7 @@ main{
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     gap: var(--space-md);
 
     width: 90%;
@@ -130,7 +130,7 @@ main{
     justify-content: center;
     align-items: center;
 
-    margin-top: -150px;
+    margin-top: var(--space-xl);
     opacity: .5;
 }
 .empty-state p, .empty-state span{

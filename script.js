@@ -48,13 +48,7 @@ cancelAddBook.addEventListener('click', () =>{
 });
 
 saveAddBook.addEventListener('click', () =>{
-    if(editingBookId === null){
-        createBookObject();
-    } else {
-        updateBook(editingBookId);
-    }
-
-    closeModal(addBookModal);
+    saveBookForm();
 });
 
 bookContainer.addEventListener('click', (event) =>{
@@ -76,11 +70,7 @@ bookContainer.addEventListener('click', (event) =>{
 });
 
 confirmDeleteBtn.addEventListener('click', () =>{
-    if(deletingBookId !== null){
-        deleteBook(deletingBookId);
-    }
-
-    deletingBookId = null;
+    confirmDelete();
 });
 
 cancelDeleteBtn.addEventListener('click', () =>{
@@ -113,6 +103,14 @@ favoriteFilterBtn.addEventListener('click', () =>{
     renderBooks();
 });
 
+document.addEventListener('keydown', (event) => {
+    if(event.key === "Escape"){
+        handleEscape();
+    }
+    if(event.key === "Enter"){
+        handleEnter(event);
+    }
+});
 
 
 function createBookObject(){
@@ -350,13 +348,13 @@ function getFilteredBooks(){
     let filteredBooks = books;
 
     if(currentFilter === "read"){
-        filteredBooks = filteredBooks.filter(book => book.isRead);
+        filteredBooks = filteredBooks.filter(b => b.isRead);
     }
     if(currentFilter === "unread"){
-        filteredBooks = filteredBooks.filter(book => !book.isRead);
+        filteredBooks = filteredBooks.filter(b => !b.isRead);
     }
     if(currentFilter === "favorite"){
-        filteredBooks = filteredBooks.filter(book => book.isFavorite);
+        filteredBooks = filteredBooks.filter(b => b.isFavorite);
     }
 
     if(currentSearch !==""){
@@ -367,6 +365,51 @@ function getFilteredBooks(){
     return filteredBooks;
 }
 
+function saveBookForm(){
+
+     if(editingBookId === null){
+            createBookObject();
+        } else {
+            updateBook(editingBookId);
+        }
+
+        closeModal(addBookModal);
+}
+
+function confirmDelete(){
+    if(deletingBookId !== null){
+        deleteBook(deletingBookId);
+    }
+
+    deletingBookId = null;
+}
+
+function handleEscape(){
+    if(addBookModal.classList.contains("show")){
+        closeModal(addBookModal);
+        return;
+    }
+
+    if(deleteBookModal.classList.contains("show")){
+        closeModal(deleteBookModal);
+    }
+
+}
+
+function handleEnter(e){
+    if(addBookModal.classList.contains("show")){
+        e.preventDefault();
+        saveBookForm();
+        return;
+    }
+
+    if(deleteBookModal.classList.contains("show")){
+        e.preventDefault();
+
+        confirmDelete();
+        return;
+    }
+}
 
 function refresh(){
     saveBooks();

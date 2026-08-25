@@ -33,12 +33,15 @@ let editingBookId = null;
 let deletingBookId = null;
 let currentFilter = "all";
 let currentSearch = "";
-let darkTheme = true;
+let isDarkTheme = false;
 
 themeToggle.addEventListener('click', () =>{
        
-    darkTheme ? applyTheme("dark") : applyTheme("light");
-    darkTheme = !darkTheme;
+    isDarkTheme = !isDarkTheme;
+
+    applyTheme(isDarkTheme ? "dark" : "light");
+
+    saveTheme(isDarkTheme);
 });
 
 addBookBtn.addEventListener('click', (event) =>{
@@ -422,13 +425,30 @@ function handleEnter(e){
 function applyTheme(theme){
     const themeToggleSpan = themeToggle.querySelector("span");
 
-    if(theme === "dark"){
+    if(theme === "light"){
         themeToggleSpan.textContent = "moon_stars";
         document.body.classList.add("light-theme");
+        isDarkTheme = false;
     } else {
         
         themeToggleSpan.textContent = "brightness_7";
         document.body.classList.remove("light-theme");
+        isDarkTheme = true;
+    }
+}
+
+function saveTheme(theme){
+    localStorage.setItem("isDarkTheme", theme);
+}
+
+function loadTheme(){
+    const savedTheme = localStorage.getItem("isDarkTheme");
+
+    if(savedTheme !== null){
+        isDarkTheme = (savedTheme === "true");
+        applyTheme(isDarkTheme ? "dark" : "light");
+    }  else {
+        applyTheme("dark");
     }
 }
 
@@ -437,5 +457,6 @@ function refresh(){
     renderBooks();
 }
 
+loadTheme();
 loadBooks();
 renderBooks();

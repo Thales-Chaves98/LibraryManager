@@ -17,7 +17,7 @@
     --text: #e1f5f8;
     --text-secondary: #dfe9ebd5;
     --accent: #058d76;
-    --accent-dark: #035c4de3;
+    --accent-hover: #035c4de3;
     --danger: #a71212;
     --danger-hover: #5a0707;
     --success: #087e33;
@@ -31,8 +31,8 @@
     --surface: #dfe9ebd5;
     --text: #012329;
     --text-secondary: #034d5acc;
-    --accent: #058d76;
-    --accent-dark: #035c4de3;
+    --accent: #035c4de3;
+    --accent-hover: #058d76;
     --danger: #a71212;
     --danger-hover: #5a0707;
     --success: #087e33;
@@ -68,7 +68,7 @@ header{
     padding: var(--space-md);
 }
 #toggle-theme-btn:hover{
-    background: var(--surface);
+
     cursor: pointer;
 }
 
@@ -109,7 +109,7 @@ main{
 }
 #add-book-btn:hover{
     cursor: pointer;
-    background: var(--surface);
+    transform: scale(.95);
 }
 .nav-filter{
     display: flex;
@@ -125,8 +125,9 @@ main{
     background: none;
     color: var(--text);
 }
-.nav-filter button:hover{
-    background-color: var(--accent-dark);
+
+.nav-filter .active-filter {
+    border-bottom: 3px solid var(--text);
 }
 
 #books-container{
@@ -196,7 +197,6 @@ main{
     
 }
 .book-actions button:hover{
-    background: var(--accent-dark);
     cursor: pointer;
 }
 .book-actions span{
@@ -362,17 +362,6 @@ select:focus-visible{
 ::selection{
     background: var(--accent);
     color: var(--text);
-}
-
-.note-card{
-    transition:
-        transform var(--transition-fast),
-        box-shadow var(--transition-fast);
-}
-
-.note-card:hover{
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-lg);
 }
 
 .material-symbols-outlined{

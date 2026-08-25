@@ -26,6 +26,7 @@ const readFilterBtn = document.getElementById("read-btn");
 const unreadFilterBtn = document.getElementById("unread-btn");
 const favoriteFilterBtn = document.getElementById("favorite-btn");
 
+
 let books = [];
 let nextBookId = 1;
 
@@ -96,21 +97,25 @@ searchBooks.addEventListener('input', () =>{
 
 allFilterBtn.addEventListener('click', () =>{
     currentFilter = "all";
+    setActiveFilter(allFilterBtn);
     renderBooks();
 });
 
 readFilterBtn.addEventListener('click', () =>{
     currentFilter = "read";
+    setActiveFilter(readFilterBtn);
     renderBooks();
 });
 
 unreadFilterBtn.addEventListener('click', () =>{
     currentFilter = "unread";
+    setActiveFilter(unreadFilterBtn);
     renderBooks();
 });
 
 favoriteFilterBtn.addEventListener('click', () =>{
     currentFilter = "favorite";
+    setActiveFilter(favoriteFilterBtn);
     renderBooks();
 });
 
@@ -435,6 +440,20 @@ function applyTheme(theme){
         document.body.classList.remove("light-theme");
         isDarkTheme = true;
     }
+}
+
+function removeActiveFilter(){
+    const activeFilter = document.querySelectorAll(".active-filter")
+
+    activeFilter.forEach(f =>{
+        f.classList.remove("active-filter");
+    });
+}
+
+function setActiveFilter(button){
+    removeActiveFilter();
+
+    button.classList.add("active-filter");
 }
 
 function saveTheme(theme){

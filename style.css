@@ -54,7 +54,7 @@ body{
 header{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-end;
 
     margin-top: var(--space-md);
     padding: var(--space-md);
@@ -86,8 +86,9 @@ main{
     justify-content: center;
     align-items: center;
 }
-.title{
+.title {
     margin: var(--space-md) 0;
+
 }
 #search-books{
     padding: var(--space-sm);

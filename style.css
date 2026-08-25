@@ -158,6 +158,7 @@ main{
 
     padding: var(--space-sm);
     gap: var(--space-md);
+    width: 100%;
 }
 .book-name{
     font-size: 1.2rem;

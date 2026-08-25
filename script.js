@@ -154,11 +154,11 @@ function renderBooks(){
 
             const bookTitle = document.createElement("p");
             bookTitle.classList.add("book-title");
-            bookTitle.textContent = book.title;
+            bookTitle.textContent = `TITLE: ${book.title}`;
 
             const bookAuthor = document.createElement("p");
             bookAuthor.classList.add("book-author");
-            bookAuthor.textContent = book.author;
+            bookAuthor.textContent = `AUTHOR: ${book.author}`;
 
 
             const bookActions = document.createElement("div");

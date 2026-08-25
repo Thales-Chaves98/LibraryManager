@@ -1,5 +1,6 @@
 const addBookBtn = document.getElementById("add-book-btn");
 const searchBooks = document.getElementById("search-books");
+const themeToggle = document.getElementById("toggle-theme-btn");
 
 //Form
 let inputBookTitle = document.getElementById("book-title");
@@ -32,6 +33,13 @@ let editingBookId = null;
 let deletingBookId = null;
 let currentFilter = "all";
 let currentSearch = "";
+let darkTheme = true;
+
+themeToggle.addEventListener('click', () =>{
+       
+    darkTheme ? applyTheme("dark") : applyTheme("light");
+    darkTheme = !darkTheme;
+});
 
 addBookBtn.addEventListener('click', (event) =>{
     event.preventDefault();
@@ -408,6 +416,14 @@ function handleEnter(e){
 
         confirmDelete();
         return;
+    }
+}
+
+function applyTheme(theme){
+    if(theme === "dark"){
+        document.body.classList.add("light-theme");
+    } else {
+        document.body.classList.remove("light-theme");
     }
 }
 

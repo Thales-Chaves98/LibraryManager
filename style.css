@@ -25,6 +25,21 @@
 
 }
 
+.light-theme{
+
+    --background: #e1f5f8;
+    --surface: #dfe9ebd5;
+    --text: #012329;
+    --text-secondary: #034d5acc;
+    --accent: #058d76;
+    --accent-dark: #035c4de3;
+    --danger: #a71212;
+    --danger-hover: #5a0707;
+    --success: #087e33;
+    --success-hover: #044d1e;
+
+}
+
 body{
     display: flex;
     flex-direction: column;

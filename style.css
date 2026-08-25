@@ -59,7 +59,7 @@ header{
     margin-top: var(--space-md);
     padding: var(--space-md);
 }
-#toggle-btn{
+#toggle-theme-btn{
     background: none;
     color: var(--text);
     border: none;
@@ -67,7 +67,7 @@ header{
 
     padding: var(--space-md);
 }
-#toggle-btn:hover{
+#toggle-theme-btn:hover{
     background: var(--surface);
     cursor: pointer;
 }

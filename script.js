@@ -420,9 +420,14 @@ function handleEnter(e){
 }
 
 function applyTheme(theme){
+    const themeToggleSpan = themeToggle.querySelector("span");
+
     if(theme === "dark"){
+        themeToggleSpan.textContent = "moon_stars";
         document.body.classList.add("light-theme");
     } else {
+        
+        themeToggleSpan.textContent = "brightness_7";
         document.body.classList.remove("light-theme");
     }
 }
